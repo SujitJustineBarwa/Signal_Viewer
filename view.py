@@ -1,7 +1,7 @@
 from PyQt6 import QtCore
 from PyQt6.QtWidgets import (QVBoxLayout,QHBoxLayout,                                   # Layouts import
                               QListWidget, QWidget,QMainWindow,QApplication,QTabWidget, # Main widgets
-                              QLabel,QPushButton,QMenu)                                 # Subwidgets
+                              QLabel,QPushButton,QMenu,QLineEdit)                       # Subwidgets
 from PyQt6.QtGui import QAction
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtCore import QDataStream, Qt, QVariant
@@ -35,21 +35,46 @@ class StreamList(QListWidget):
         return md
 
 class StreamListWidget(QWidget):
-    """Shows available streams, supports drag."""
+    """Shows available streams, supports drag, with search."""
     def __init__(self):
         super().__init__()
 
+        # Widgets
+        self.search_bar = QLineEdit()
+        self.search_bar.setPlaceholderText("Search Signal ...")
         self.refresh_button = QPushButton("Refresh")
-        self.stream_list = StreamList()   # <-- use subclass
+        self.stream_list = StreamList()
+
+        # Layout
         self.layout = QVBoxLayout(self)
-        self.layout.addWidget(QLabel("Available Streams"))
+        self.layout.addWidget(QLabel("Available Signals"))
+        self.layout.addWidget(self.search_bar)
         self.layout.addWidget(self.stream_list)
         self.layout.addWidget(self.refresh_button)
 
-    def update_signals(self, signals):
-        self.stream_list.clear()
-        self.stream_list.addItems(signals)
+        # Connect search functionality
+        self.search_bar.textChanged.connect(self.filter_streams)
 
+        # Internal storage of all signals
+        self._all_signals = []
+
+    def update_signals(self, signals):
+        """Update list with all available signals."""
+        self._all_signals = signals
+        self.apply_filter()
+
+    def filter_streams(self, text):
+        """Filter list based on search text."""
+        self.apply_filter(text)
+
+    def apply_filter(self, text=""):
+        """Apply search filter to the list."""
+        self.stream_list.clear()
+        if text:
+            filtered = [s for s in self._all_signals if text.lower() in s.lower()]
+        else:
+            filtered = self._all_signals
+        self.stream_list.addItems(filtered)
 
 class PlotWidget(pg.PlotWidget):
     """Single plot, supports multiple signals overlayed."""
