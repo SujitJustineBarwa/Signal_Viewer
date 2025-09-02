@@ -6,10 +6,10 @@ This is an application that fetches the signals from redis server hosted on loca
 In the following picture, the three signals 'signal A','signal B' and 'signal C' can be seen in redis_insight.
 ![Redis insight](<assets/Redis_insight.png>)
 
-The signals are captured by application in <underline>separate threads</underline> and are then displayed in the screen.Here below is the working of the app.Note that the x-axis is fixed here.
+The signals are captured by application in **separate threads** and are then displayed in the screen.Here below is the working of the app.<br>Note that the x-axis is fixed here.<br>
 ![demo gif](<assets/demo.gif>)
 
-Here below is the working of the app with dynamic x-axis here.
+Here below is the working of the app with dynamic x-axis here.<br>
 ![demo gif](<assets/demo_datetime_x_axis.gif>)
 
 ## Usage
