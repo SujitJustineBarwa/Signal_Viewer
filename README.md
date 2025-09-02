@@ -1,11 +1,12 @@
 # Signal-Viewer
+Real-time Multithreaded Signal Viewer is a modular, drag-and-drop dashboard for exploring live data streams straight from Redis. Whether it’s market prices, IoT sensors, machine health, or research signals, this tool lets you instantly visualize, stack, and overlay streams in beautiful time-series plots — all without writing a single line of code. Think of it as your real-time oscilloscope for Redis.
 
 This is an application that fetches the signals from redis server hosted on localhost (127.0.0.1) at port 6379.This database can be monitored in <i>redisinsight</i> app.Three signals are streamed from the program <i>signal_emitter.py</i> (Adapter code) to the redis database server.
 
 In the following picture, the three signals 'signal A','signal B' and 'signal C' can be seen in redis_insight.
-![alt text](<assets/Redis_insight.png>)
+![Redis insight](<assets/Redis_insight.png>)
 
-The signals are captured by application and are then displayed in the screen.Here below is the working of the app.
+The signals are captured by application in <underline>separate threads</underline> and are then displayed in the screen.Here below is the working of the app.
 ![demo gif](<assets/demo.gif>)
 
 ## Usage
