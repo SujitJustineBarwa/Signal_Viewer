@@ -1,11 +1,11 @@
 # Signal-Viewer
 
-This is an application that fetches the signals from redis server hosted on localhost (127.0.0.1) at port 6379.This database can be monitored in <i>redisinsight</i> app.Three signals are streams from the program <i>signal_emitter.py</i> (Adapter code) to the redis database server.
+This is an application that fetches the signals from redis server hosted on localhost (127.0.0.1) at port 6379.This database can be monitored in <i>redisinsight</i> app.Three signals are streamed from the program <i>signal_emitter.py</i> (Adapter code) to the redis database server.
 
 In the following picture, the three signals 'signal A','signal B' and 'signal C' can be seen in redis_insight.
 ![alt text](<assets/Redis_insight.png>)
 
-The signals are captured by the Model (Data layer) and are then displayed in the screen.Here below is the working of the app.
+The signals are captured by application and are then displayed in the screen.Here below is the working of the app.
 ![demo gif](<assets/demo.gif>)
 
 ## Usage
