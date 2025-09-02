@@ -76,5 +76,5 @@ pip install -r requirements.txt
 - https://redis.io/insight/
 
 ## Future improvements:
-
+- The signal pause/play functionality can be added to the application that allows the user to analyze a signal be pausing it.
 - When the signals gets deleted from redis server while the application is running with those signals on the active plots, the application cannot adapt to it.This bug could be checked and removed. As of now the best policy is to remove all the signals and then refresh the signal list and then continue.
