@@ -75,22 +75,21 @@ class PlotWidget(pg.PlotWidget):
         signal_name = event.mimeData().text()
         self.update_signal(signal_name, x=[], y=[])
 
-    def update_signal(self, stream_name: str, x, y):
+    def update_signal(self, stream_name: str, x, y, x_dynamic=False):
 
         if x:  # non-empty
             if isinstance(x[0], datetime.datetime):
-                x = [idx for idx,dt in enumerate(x)]
+                if not x_dynamic:
+                    x = [idx for idx, dt in enumerate(x)]
+                else:
+                    x = [dt.timestamp() for dt in x]
 
-                '''
-                x = [dt.timestamp() for dt in x]
-
-                # Create DateAxis with grid enabled
-                date_axis = DateAxisItem(orientation='bottom')
-                date_axis.setGrid(100)  # turn on grid lines
-                date_axis.setPen(pg.mkPen(color='w'))  # axis line
-                date_axis.setTickFont(self.font())   # keep ticks readable
-                self.plotItem.setAxisItems({'bottom': date_axis})
-                '''
+                    # Create DateAxis with grid enabled
+                    date_axis = DateAxisItem(orientation='bottom')
+                    date_axis.setGrid(100)  # turn on grid lines
+                    date_axis.setPen(pg.mkPen(color='w'))  # axis line
+                    date_axis.setTickFont(self.font())   # keep ticks readable
+                    self.plotItem.setAxisItems({'bottom': date_axis})
 
         if stream_name not in self.curves:
             curve = self.plot(pen=pg.mkPen(width=2, color=self.generate_random_rgb_color()), name=stream_name)

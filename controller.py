@@ -3,9 +3,10 @@ from view import MainWindow
 from model import RedisClient,RedisWorker
 
 class SignalViewerController:
-    def __init__(self, model: RedisClient, view: MainWindow):
+    def __init__(self, model: RedisClient, view: MainWindow, x_dynamic: bool):
         self.model = model
         self.view = view
+        self.x_dynamic = x_dynamic
 
         # Update signal list
         self.view.stream_list.refresh_button.clicked.connect(self.update_signal_list)
@@ -51,4 +52,4 @@ class SignalViewerController:
                 # Extract x and y data from the signal_queue
                 x = [item["timestamp"] for item in signal_queue]
                 y = [item["value"] for item in signal_queue]
-                plot.update_signal(signal_name, x, y)
+                plot.update_signal(signal_name, x, y, x_dynamic=self.x_dynamic)
